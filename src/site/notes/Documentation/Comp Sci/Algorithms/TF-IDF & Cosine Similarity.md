@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"dg-path":"Algorithms/TF-IDF & Cosine Similarity.md","permalink":"/algorithms/tf-idf-and-cosine-similarity/","tags":["cs/algos/nlp"],"created":"2024-12-03T11:10:58.240-06:00","updated":"2024-12-11T18:41:59.304-06:00"}
+{"dg-publish":true,"dg-path":"Algorithms/TF-IDF & Cosine Similarity.md","permalink":"/algorithms/tf-idf-and-cosine-similarity/","tags":["cs/algos/nlp"],"created":"2024-12-03T11:10:58.240-06:00","updated":"2024-12-12T11:04:03.579-06:00"}
 ---
 
 TF-IDF is a method for creating a vector to represent a document. The two parts of the name stand for *term frequency* and *inverse document frequency*. It's a relatively simple concept and the math behind isn't too wild.
@@ -194,7 +194,9 @@ $$
 
 An interesting property appears when the dot product is 0. This happens when two vectors are orthogonal to one another. This is easy to visualize in 2-dimensional space: Two vectors intersecting at a 90 degree angle, the vectors won't project onto each other to form a triangle. The neat thing is that this also holds true in higher dimensional spaces.
 
-The closer two vectors are to orthogonal, the less similar they are. That is, the angle formed between two vectors is a measure of how closely related they are. This is useful for us since two documents where related terms are used but in very different frequencies will still have a small angle, making it easy to identify them as being related. While two documents which might share a few of the same highly weighted words but not much else will have an angle closer to orthogonal. Basic keyword matching would have marked them as similar, but cosine similarity is able to see past that. 
+The closer two vectors are to orthogonal, the less similar they are. That is, the angle formed between two vectors is a measure of how closely related they are. This is useful for us since two documents where related terms are used but in very different frequencies will still have a small angle, making it easy to identify them as being related. 
+
+While two documents which might share a few of the same highly weighted words but not much else will have an angle closer to orthogonal. Basic keyword matching would have marked them as similar, but cosine similarity is able to see past that. 
 
 The formula for cosine similarity is straightforward as well, this is trigonometry after all. As a refresher:
 
@@ -208,3 +210,16 @@ cos\theta &= \frac{a.b}{||a||\space||b||} \\
 &= \frac{\sum_{i=1}^n a_ib_i}{\sqrt{\sum_{i=1}^na^2}\sqrt{\sum_{i=1}^nb^2}}
 \end{aligned}
 $$
+
+The angle $\cos\theta$ is the document's score and can be used to compare it against other documents.
+
+$$
+\begin{align}
+\cos\theta_a = \frac{x . a}{||x||\space||a||} \\
+\cos\theta_b = \frac{x . b}{||x||\space||b||} \\
+\end{align}
+$$
+
+If $\cos\theta_a > \cos\theta_b$ then $a$ is less similar to $x$ than $b$ is.
+
+While we're using it in the context of text analysis here, it can be used for any data which can be expressed as matrices, eg: images.
